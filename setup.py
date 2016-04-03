@@ -30,11 +30,9 @@ with open('requirements.txt') as f:
 
 setup(
     name='newspaper',
-    version='0.0.9.8',
+    version='0.1.8',
     description='Simplified python article discovery & extraction.',
-    author='Lucas Ou-Yang',
-    author_email='lucasyangpersonal@gmail.com',
-    url='https://github.com/codelucas/newspaper/',
+    url='https://github.com/news-ai/newspaper/tree/python-2-head'
     packages=packages,
     include_package_data=True,
     install_requires=required,
