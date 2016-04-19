@@ -88,6 +88,9 @@ class Article(object):
         # Summary generated from the article's body txt
         self.summary = u''
 
+        # Opening Paragraph from body
+        self.opening_paragraph = u''
+
         # This article's unchanged and raw HTML
         self.html = u''
 
@@ -320,8 +323,9 @@ class Article(object):
         self.set_keywords(keyws)
 
         summary_sents = nlp.summarize(title=self.title, text=self.text)
-        summary = '\n'.join(summary_sents)
+        summary = '\n'.join(summary_sents[0])
         self.set_summary(summary)
+        self.opening_paragraph = summary_sents[1]
 
     def get_parse_candidate(self):
         """A parse candidate is a wrapper object holding a link hash of this

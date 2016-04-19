@@ -20,20 +20,6 @@ with open(settings.NLP_STOPWORDS_EN, 'r') as f:
 ideal = 20.0
 
 
-# def summarize(url='', title='', text='', max_sents=5):
-#     if (text == '' or title == ''):
-#         return []
-
-#     summaries = []
-#     sentences = split_sentences(text)
-#     keys = keywords(text)
-#     titleWords = split_words(title)
-
-#     # Score setences, and use the top 5 sentences
-#     ranks = score(sentences, titleWords, keys).most_common(max_sents)
-#     for rank in ranks:
-#         summaries.append(rank[0])
-#     return summaries
 def summarize(url='', title='', text='', max_sents=5):
     if not text or not title or max_sents <= 0:
         return []
@@ -44,6 +30,10 @@ def summarize(url='', title='', text='', max_sents=5):
     invalid_words = ['Getty Images']
     sentences = split_sentences(text)
     valid_sentences = strip_sentences_of_invalid_words(sentences, invalid_words)
+
+    # take first 7 sentences as opening paragraph
+    opening_paragraph = ' '.join(valid_sentences[0:5])
+
     keys = keywords(text)
     titleWords = split_words(title)
 
@@ -51,7 +41,7 @@ def summarize(url='', title='', text='', max_sents=5):
     ranks = score(valid_sentences, titleWords, keys).most_common(max_sents)
     for rank in ranks:
         summaries.append(rank[0])
-    return summaries
+    return [summaries, opening_paragraph]
 
 
 def strip_text_of_invalid(text):
@@ -62,12 +52,14 @@ def strip_text_of_invalid(text):
     for block in text_blocks:
         if len(block) > 5:
             text.append(is_valid_block(block, p))
-    return ' '.join([ x for x in text if x is not None ])
+    return ' '.join([x for x in text if x is not None])
+
 
 def is_valid_block(text, compiled_reg):
     a = compiled_reg.match(text)
     if a:
         return a.group()
+
 
 def strip_sentences_of_invalid_words(sentences, invalid_words):
     compiled_reg = []
@@ -80,13 +72,14 @@ def strip_sentences_of_invalid_words(sentences, invalid_words):
             valid_sentences.append(reg.sub('', sentence))
     return valid_sentences
 
+
 def remove_upto_reg(match):
     string_arr = ['^.+?(?=(', match, '))']
     line = match.split(' ')
     for i in range(0, len(match.split(' '))):
         string_arr.append('\w+\s')
-    # print ''.join(string_arr)
     return re.compile(''.join(string_arr), re.IGNORECASE)
+
 
 def score(sentences, titleWords, keywords):
     """Score sentences based on different features

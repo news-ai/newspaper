@@ -8,9 +8,8 @@ def read_article_without_author(url):
     article.nlp()
 
     # print article.text
-    print article.summary
+    print article.opening_paragraph
 
 
-url = 'http://observer.com/2016/03/rogerebert-com-holds-women-writers-week-to-celebrate-diversity/'
 url = 'http://www.nydailynews.com/news/crime/slain-va-trooper-made-arrest-woman-dead-son-car-article-1.2585840'
 read_article_without_author(url)
