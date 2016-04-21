@@ -30,7 +30,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='newspaper',
-    version='0.1.8',
+    version='0.1.9',
     description='Simplified python article discovery & extraction.',
     url='https://github.com/news-ai/newspaper/tree/python-2-head'
     packages=packages,
