@@ -28,7 +28,6 @@ setup(
     version='0.1.9',
     description='Simplified python article discovery & extraction.',
     url='https://github.com/news-ai/newspaper/tree/python-2-head'
-    include_package_data=True,
     install_requires=required,
     license='MIT',
     zip_safe=False,
