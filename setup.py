@@ -19,11 +19,6 @@ if sys.argv[-1] == 'publish':
     sys.exit()
 
 
-packages = [
-    'newspaper',
-]
-
-
 with open('requirements.txt') as f:
     required = f.read().splitlines()
 
@@ -33,7 +28,6 @@ setup(
     version='0.1.9',
     description='Simplified python article discovery & extraction.',
     url='https://github.com/news-ai/newspaper/tree/python-2-head'
-    packages=packages,
     include_package_data=True,
     install_requires=required,
     license='MIT',
