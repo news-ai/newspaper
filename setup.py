@@ -13,6 +13,9 @@ try:
 except ImportError:
     from distutils.core import setup
 
+packages = [
+    'newspaper',
+]
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')  # bdist_wininst
@@ -29,6 +32,8 @@ setup(
     description='Simplified python article discovery & extraction.',
     url='https://github.com/news-ai/newspaper/tree/python-2-head'
     install_requires=required,
+    packages=packages,
+    include_package_data=True,
     license='MIT',
     zip_safe=False,
 )
